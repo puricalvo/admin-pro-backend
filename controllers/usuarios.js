@@ -7,11 +7,22 @@ const { generalJWT } = require('../helpers/jwt');
 
 const getUsuarios = async(req, res) => {
 
-    const usuarios = await Usuario.find({}, 'nombre email role google');
+    const desde = Number(req.query.desde) || 0;
+    
+    const [ usuarios, total ] = await Promise.all([
+        Usuario
+            .find({}, 'nombre email role google img')
+            .skip( desde )
+            .limit( 5 ),
+
+        Usuario.countDocuments()
+    ]);
 
     res.json({
         ok: true,
-        usuarios
+        usuarios,
+        total
+        
     });
 
 }
@@ -46,7 +57,6 @@ const crearUsuario = async(req, res = response) => {
         // Generar el TOKEN - JWT
         const token = await generalJWT( usuario.id );
 
-
          res.json({
              ok: true,
              usuario,
@@ -65,7 +75,7 @@ const crearUsuario = async(req, res = response) => {
 
 const actualizarususario = async (req, res = response) => {
 
-    // TODO: Validar token y comprobar si es el ususario correcto
+    //  TODO: Validar token y comprobar si es el ususario correcto
 
     const uid = req.params.id;
 

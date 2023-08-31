@@ -1,5 +1,5 @@
 /*
-    Rutas: /api/usuarios
+    Ruta: /api/usuarios
 */
 const { Router } = require('express');
 const { check } = require('express-validator');
@@ -38,9 +38,6 @@ router.delete( '/:id',
     validarJWT,
     borrarUsuario 
 );
-
-
-
 
 
 
