@@ -15,10 +15,10 @@ const MedicoSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'Usuario'
     },
-    hospital: [{ 
+    hospital: { 
          type: Schema.Types.ObjectId,
          ref: 'Hospital', 
-         required: [true, 'El id hospital es un campo obligatorio '] }],
+         required: [true, 'El id hospital es un campo obligatorio '] },
 
 });
 
